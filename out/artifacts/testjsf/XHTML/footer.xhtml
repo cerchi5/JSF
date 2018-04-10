@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>JSF</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="../css/footer.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+        <script type="application/javascript">
+            function initMap() {
+                var uluru = {lat: 45.756128, lng: 21.228059};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 12,
+                    center: uluru
+                });
+                var marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map
+                });
+            }
+        </script>
+        <script  type="javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXNU_s8rz7GmoWvIgg-FkPI1sLeOs8BiA&amp;callback=initMap">
+        </script>
+
+    </h:head>
+    <body>
+
+        <div class="footer">
+            <div>
+                <h3 class="title">STAY INFORMED</h3>
+                <p> Subscribe to receive weekly healthy newsletter</p>
+                <div class="flexItems">
+                    <!-- refactor form / get data / put it in db  -->
+                    <h:form action="Servlet" method="get" class="flexItems">
+                        <h:inputText type="text" class="SubscribeEmail" name="emailSubscribe"  value="#{Subscribe.email}"/>
+                        <h:commandButton type="submit" styleClass="Subscribe" value="SUBSCRIBE" action="#{Subscribe.validateEmail}"/>
+                    </h:form>
+                </div>
+                <div>
+                    <!--<a href="#" class="fa fa-facebook fa-3x" ></a>
+                    <a href="#" class="fa fa-instagram fa-3x" style="margin-right: 5%;"></a>
+                    <a href="#" class="fa fa-twitter fa-3x" style="margin-right: 5%;"></a>-->
+
+                    <!-- TERMs of use / Privacy Policy/ maybe Sitemap -->
+
+                </div>
+            </div>
+            <div>
+                <h3 class="title">FIND US ON SOCIAL MEDIA</h3>
+                <div class="flexItems">
+                    <a href="#" class="fa fa-facebook fa-5x spaceBetween hoverColor"></a>
+                    <a href="#" class="fa fa-instagram fa-5x spaceBetween hoverColor"></a>
+                    <a href="#" class="fa fa-twitter fa-5x spaceBetween hoverColor"></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="title">CONTACT</h3>
+                <div id="map" class="map"></div>
+            </div>
+        </div>
+
+    </body>
+</html>

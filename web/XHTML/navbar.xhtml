@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+   <h:head>
+      <title>JSF</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet"/>
+      <link rel="stylesheet" type="text/css" href="../css/navbar.css"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+
+
+
+      <script type="text/javascript">
+          function dropdown() {
+
+              if(document.getElementById("drop-items-visitor") !== null) {
+                  var dropdown1 = document.getElementById("drop-items-visitor");
+                  if (dropdown1.classList.contains('show')) {
+                      dropdown1.classList.remove('show');
+                  } else {
+                      dropdown1.classList.add('show');
+                  }
+              }
+
+              if(document.getElementById("drop-items-logged") !== null)
+              var dropdown2 = document.getElementById("drop-items-logged");
+              if(dropdown2.classList.contains('show')){
+                  dropdown2.classList.remove('show');
+              }else{
+                  dropdown2.classList.add('show');
+              }
+          }
+
+
+
+          function mouseClick(name) {
+              name += '.jsp';
+              $(location).attr('href',name);
+          }
+      </script>
+       <script type="application/javascript">
+           var modalLogin = document.getElementById('modalLogin');
+           var modalRegister = document.getElementById('modalRegister');
+
+           window.onclick = function(event) {
+               if (event.target == modalLogin) {
+                   modalLogin.style.display = "none";
+               }
+               if (event.target == modalRegister) {
+                   modalRegister.style.display = "none";
+               }
+           }
+       </script>
+       <script src="http://code.jquery.com/jquery-3.3.1.js" type="application/javascript"/>
+       <script type="text/javascript">
+           $(document).ready(function(){
+               $('.menu').click(function(){
+                   $('.responsiveItems').toggleClass('active');
+               })
+           })
+       </script>
+   </h:head>
+
+   <h:body>
+   <div class="sticky">
+      <div class="logo">
+         <a href="#" onclick="mouseClick('index');"><img src="../images/logo1.jpg" alt=""/></a><!-- 124x63 px-->
+      </div>
+      <div class="items">
+         <ul class="navbarList">
+            <li><a href="#" onclick="mouseClick('Gyms');">Gyms</a></li>
+            <li><a href="#" onclick="mouseClick('Sportswear');">Sportswear</a></li>
+            <li><a href="workout.xhtml" onclick="mouseClick('Workout');">Workout</a></li>
+            <li><a href="#" onclick="mouseClick('Forum');">Forum</a></li>
+            <li><a href="#" onclick="mouseClick('About');">About</a></li>
+            <li><div>
+               <a href="javascript:dropdown()" class="fa fa-user fa-lg user"/>
+
+                    <c:if test="#{empty Username.username}">
+                      <div class="drop-items" id="drop-items-visitor">
+                         <a id="login" href="#" onclick="document.getElementById('modalLogin').style.display='block'; document.getElementById('drop-items').classList.remove('show');" style="width:auto;">Log In</a>
+                         <a href="#" id="register" onclick="document.getElementById('modalRegister').style.display='block'; document.getElementById('drop-items').classList.remove('show');" style="width:auto;">Register</a>
+                      </div>
+                    </c:if>
+
+                <c:if test="#{not empty Username.username}">
+                      <div class="drop-items" id="drop-items-logged">
+                         <a href="#">Hello, #{Username.username}</a>
+
+                         <h:form action="Servlet" method="get">
+                            <button type="submit" name="disconnect">Log out</button>
+                            <a href="#" class="fafa"> dasfas</a>
+                         </h:form>
+
+                      </div>
+                </c:if>
+
+
+            </div></li>
+         </ul>
+      </div>
+
+   </div>
+
+
+
+
+
+
+
+
+
+
+   <div class="responsiveNavbar">
+      <img src="/images/logo1.jpg" alt=""/>
+      <a class="fa fa-bars fa-2x menu" id ="bars" style="color: #e9e9e9;"/>
+   </div>
+   <ul class="responsiveItems" id="drop-items-responsive">
+       <!--
+      <%
+      if(session.getAttribute("username") == null){
+      %>
+      <li> <a href="#" id="registerR" onclick="document.getElementById('modalLogin').style.display='block'; document.getElementById('drop-items-responsive').classList.remove('active');"> Login</a></li>
+      <%
+      }else{
+      %>
+      <li><a href="#" >Hello, <% out.print(session.getAttribute("username"));%></a>
+         <form action="Servlet" method="get">
+            <button type="submit" name="disconnect">Log out</button>
+         </form>
+      </li>
+      <%}%> -->
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Gyms</a></li>
+      <li><a href="#">Sportswear</a></li>
+      <li><a href="#">Workout</a></li>
+      <li><a href="#">Forum</a></li>
+      <li><a href="#">About</a></li>
+   </ul>
+
+
+
+
+
+
+   <div id="modalLogin" class="modal">
+
+      <h:form class="modal-content animate">
+
+         <div class="container">
+            <label><b>Username</b></label>
+            <h:inputText name="unameLogin" required="true" value="#{Username.username}"/>
+
+            <label><b>Password</b></label>
+            <h:inputSecret name="pswLogin" required="true" value="#{Username.password}"/>
+
+            <h:commandButton styleClass="submitLogin" value="Login" action="#{Username.validateLogIn}"/>
+            <label>
+               <input type="checkbox" checked="checked" name="remember"/> Remember me
+            </label>
+         </div>
+
+         <div class="container" style="background-color:#e9e9e9">
+            <button type="button" onclick="document.getElementById('modalLogin').style.display='none'" class="cancelbtn">Cancel</button>
+            <span class="forgotpsw"><a href="#">Forgot password?   </a></span>
+            <span class="forgotpsw"><a href="#" onclick="document.getElementById('modalRegister').style.display='block'; document.getElementById('modalLogin').style.display='none'; document.getElementById('drop-items').classList.remove('show');">  Create an account</a></span>
+         </div>
+
+      </h:form>
+   </div>
+
+   <div id="modalRegister" class="modal">
+
+      <h:form class="modal-content animate">
+
+         <div class="container">
+
+            <label><b>Username</b></label>
+            <h:inputText name="unameRegister" required="true" value="#{Username.username}"/>
+
+            <label><b>Email</b></label>
+            <h:inputText name="emailRegister" required="true" value="#{Username.email}"/>
+
+            <label><b>Password</b></label>
+            <h:inputSecret name="pswRegister" required="true" value="#{Username.password}"/>
+
+            <label><b>Confirm Password</b></label>
+            <h:inputSecret name="confirmpswRegister" required="true" value="#{Username.confirmPassword}"/>
+
+            <h:commandButton styleClass="submitRegister" value="Register" action="#{Username.validateRegister}"/>
+         </div>
+
+         <div class="container" style="background-color:#e9e9e9">
+            <button type="button" onclick="document.getElementById('modalRegister').style.display='none'" class="cancelbtn">Cancel</button>
+            <span class="forgotpsw"><a href="#" onclick="document.getElementById('modalRegister').style.display='none'; document.getElementById('modalLogin').style.display='block'; ">You already have an account?   </a></span>
+         </div>
+
+      </h:form>
+   </div>
+
+
+   </h:body>
+</html>
