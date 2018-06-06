@@ -6,34 +6,156 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>JSF</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet"/>
-        <link rel="stylesheet" type="text/css" href="../css/navbar.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/workout.css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"/>
+
+        <script type="text/javascript">
+            function openNav() {
+                document.getElementById("sidebar").style.display = "grid";
+                document.getElementById("sidebar").style.width = "250px";
+
+                document.getElementById("main").style.marginLeft = "250px";
+                document.getElementById("openSide").style.marginLeft = "270px";
+
+                document.getElementById("openSide").style.display = "none";
+            }
+
+            function closeNav() {
+                document.getElementById("sidebar").style.display = "none";
+                document.getElementById("sidebar").style.width = "0";
+
+                document.getElementById("main").style.marginLeft = "0";
+                document.getElementById("openSide").style.marginLeft = "20px";
+
+                document.getElementById("openSide").style.display = "block";
+            }
+        </script>
+
     </h:head>
-    <body>
+    <h:body>
         <ui:include src="navbar.xhtml"/>
         <br/><br/><br/><br/><br/><br/><br/>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"/>
+        <div id="sidebar">
+            <!--<a href="#">Add new progamme</a>-->
+            <!--<a href="#">Work</a>-->
+            <!--<a href="#">Remove</a>-->
 
-        <script type="text/javascript">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+
+            <h:form>
+
+                <p:menu toggleable="true" model="#{WorkoutSideMenu.model}"/> <!-- aici model din bean -->
+
+            </h:form>
+
+        </div>
 
 
-            var url = 'servlet/util.GetDisplayData'
+        <span id="openSide" onclick="openNav()"><i class="fas fa-clipboard-list fa-3x" style="color: #915a08"/></span>
 
-            $(document).ready(function() {
+        <div id="main">
 
-                $.ajaxSetup({ cache: false });
+            <!--<ul>-->
+                <!--<c:forEach items="#{countryService.allCountries}" var="country" varStatus="metadata">-->
+                    <!--<li style="background-color:#{ (metadata.odd ? 'grey' : 'white')}">-->
+                        <!--<h:outputText value="#{i18n['index']}: #{metadata.index}, #{country.countryName}"/>-->
+                    <!--</li>-->
+                <!--</c:forEach>-->
+            <!--</ul>-->
 
-                setInterval(function() {$("#displayarea").load(url); }, 10000);
 
-            });
+            <p:panelGrid columns="4" layout="grid" styleClass="mainGrid">
+                <c:forEach items="#{WorkoutList.allWorkouts}" var="item">
+                    <p:panelGrid columns="1" layout="grid" cellpadding="0" cellspacing="2">
+                        <!--<h:outputText value="#{item.name}" styleClass="align_center"/>-->
+                        <!--<p class="align_center">#{item.name}</p>-->
+                        <!--<h:outputLabel value="#{item.category}" styleClass="align_center"/>-->
+                        <!--<h:graphicImage value="../images/back2.jpg" styleClass="workoutCell" />-->
+                        <!--<a href="google.com">-->
+                        <!--<span class="workoutPanel">-->
+                            <!--<img src="../images/back2.jpg" alt="" class="workoutImage"/>-->
+                            <!--&lt;!&ndash;<div class="overlay">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="workoutDescription">#{item.name}</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--<p id="#{item.name}Workout" style="text-align: center; margin: 0;">#{item.name}</span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <div>
+                            <img src="../images/back2.jpg" alt="" class="workoutImage" />
+                            <p id="" style="text-align: center; margin: 0;">#{item.name}</p>
+                        </div>
+                    </p:panelGrid>
+                </c:forEach>
+            </p:panelGrid>
 
-        </script>
+
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a><a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a><a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a><a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a><a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a><a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a><a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a><a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a><a href="#">aaa</a>-->
+            <!--<a href="#">aaa</a>-->
+
+
+
+        </div>
+
 
         <br/><br/><br/><Br/><br/><br/>
         <br/><br/><br/><Br/><br/><br/>
@@ -41,5 +163,5 @@
 
         <ui:include src="footer.xhtml"/>
 
-    </body>
+    </h:body>
 </html>

@@ -5,6 +5,7 @@ body{
 }
 .footer{
     padding-top: 2%;
+    z-index: 1000;
     height: auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -12,6 +13,7 @@ body{
     background-color: black;
     color:#e9e9e9;
     bottom: 0;
+    clear: both;
 }
 
 .footer > div{

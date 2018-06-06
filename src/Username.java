@@ -1,9 +1,14 @@
 import org.omg.PortableInterceptor.SUCCESSFUL;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
 @ManagedBean(name = "Username")
+@SessionScoped
 
 public class Username implements Serializable{
 
@@ -21,13 +26,19 @@ public class Username implements Serializable{
 
     public String validateLogIn() {
 
-        System.out.println(username + "   " + password);
+//        System.out.println(username + "   " + password);
 
         if (!MongoConnect.logIn(username, password)){
             System.out.println(false);
             setUsername(null);
             setPassword(null);
             return null;
+        }else{
+
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+            session.setAttribute("username",username);
+
         }
         return "";
     }
@@ -40,7 +51,15 @@ public class Username implements Serializable{
             System.out.println(false);
             setUsername(null);
             setPassword(null);
+            setEmail(null);
+            setConfirmPassword(null);
             return null;
+        }else{
+
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+            session.setAttribute("username",username);
+
         }
 
         return "";
