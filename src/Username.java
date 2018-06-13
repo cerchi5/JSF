@@ -1,6 +1,7 @@
 import org.omg.PortableInterceptor.SUCCESSFUL;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.jws.soap.SOAPBinding;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 
 public class Username implements Serializable{
 
-    private String username;
+    public String username;
     private String email;
     private String password;
     private String confirmPassword;
@@ -66,6 +67,7 @@ public class Username implements Serializable{
     }
 
     public void setUsername(String username) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username",username);
         this.username = username;
     }
 

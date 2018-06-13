@@ -5,12 +5,14 @@ import org.primefaces.model.menu.MenuModel;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
 @ManagedBean(name = "WorkoutSideMenu")
+@SessionScoped
 public class WorkoutSideMenu implements Serializable{
 
     private MenuModel model;
@@ -20,7 +22,6 @@ public class WorkoutSideMenu implements Serializable{
     }
 
     public WorkoutSideMenu(){
-//        System.out.println("MUIEEEE");
 
         model = new DefaultMenuModel();
 

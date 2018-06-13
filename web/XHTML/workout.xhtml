@@ -6,7 +6,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>JSF</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,6 +16,9 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"/>
 
         <script type="text/javascript">
+
+            var modalItem = "";
+
             function openNav() {
                 document.getElementById("sidebar").style.display = "grid";
                 document.getElementById("sidebar").style.width = "250px";
@@ -35,9 +39,26 @@
                 document.getElementById("openSide").style.display = "block";
             }
 
-            function openWorkoutModal(id) {
-                var element = document.getElementById(id);
-                element.style.display('block');
+//            function openWorkoutModal(id) {
+//                var element = document.getElementById(id);
+//                element.style.display('block');
+//            }
+
+//            (function($) {
+//                $(".modal-trigger").click(function(e){
+//                   e.preventDefault();
+//                   var modal_id = $(this).attr('id');
+//                    document.getElementById(modal_id).style.display = "block";
+//                });
+//            })(jQuery);
+
+            function show_modal(item){
+                document.getElementById("modal").style.display = "block";
+                document.getElementById("workoutName").innerHTML = item.id;
+                document.getElementById("workoutCategory").innerHTML = item.title;
+                PF('workoutNameField').jq.val(item.id);
+                PF('workoutCategoryField').jq.val(item.title);
+
             }
         </script>
 
@@ -69,26 +90,51 @@
             <p:panelGrid columns="4" layout="grid" styleClass="mainGrid">
                 <c:forEach items="#{WorkoutList.allWorkouts}" var="item">
                     <p:panelGrid columns="1" layout="grid" cellpadding="0" cellspacing="2">
-                        <!--<h:outputText value="#{item.name}" styleClass="align_center"/>-->
-                        <!--<p class="align_center">#{item.name}</p>-->
-                        <!--<h:outputLabel value="#{item.category}" styleClass="align_center"/>-->
-                        <!--<h:graphicImage value="../images/back2.jpg" styleClass="workoutCell" />-->
-                        <!--<a href="google.com">-->
-                        <!--<span class="workoutPanel">-->
-                            <!--<img src="../images/back2.jpg" alt="" class="workoutImage"/>-->
-                            <!--&lt;!&ndash;<div class="overlay">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div class="workoutDescription">#{item.name}</div>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--<p id="#{item.name}Workout" style="text-align: center; margin: 0;">#{item.name}</span>-->
-                        <!--</span>-->
-                        <!--</a>-->
-                        <div onclick="openWorkoutModal(#{item.name})">
+                        <div class="modal-trigger" id="#{item.name}" onclick="show_modal(this)" title="#{item.category}">
                             <img src="../images/back2.jpg" alt="" class="workoutImage" />
                             <p id="" style="text-align: center; margin: 0;">#{item.name}</p>
                         </div>
                     </p:panelGrid>
                 </c:forEach>
             </p:panelGrid>
+        </div>
+
+
+        <div id="modal">
+
+            <div class="modal-content">
+
+                <h:form>
+
+                <p:panelGrid columns="2" layout="grid" cellpadding="40" cellspacing="8px">
+                    <p:panelGrid id="workoutPanel" columns="1" layout="grid" cellspacing="50px">
+                        <p:column><label id="workoutName"><b>Name</b></label></p:column>
+                        <p:column><label id="workoutCategory"><b>Category</b></label></p:column>
+                        <p:inputText type="hidden" value="#{WorkoutList.selectedWorkoutName}" widgetVar="workoutNameField"/>
+                        <p:inputText type="hidden" value="#{WorkoutList.selectedCategory}" widgetVar="workoutCategoryField"/>
+                        <p:column>
+                            <h:selectOneMenu value="#{WorkoutList.option}">
+                                <f:selectItems value="#{WorkoutList.playlistsNames}"/>
+                            </h:selectOneMenu>
+                            <!--<p:inputNumber value="#{WorkoutList.reps}" minValue="1" maxValue="500"/>-->
+                            <!--<div class="knob-container ui-corner-all">-->
+                            <!--<p:knob cursor="true" value="#{WorkoutList.reps}" max="">-->
+                            <!--</p:knob>-->
+                            <!--</div>-->
+                        </p:column>
+
+                        <!--<p:column><p:inputNumber value="#{WorkoutList.reps}" minValue="0" maxValue="500"/></p:column>-->
+                    </p:panelGrid>
+                    <img src="../images/back2.jpg" alt=""/> <!--adjust image to fit the modal-->
+                </p:panelGrid>
+                <h:commandButton styleClass="addToPlaylist" value="Add to playlist" actionListener="#{WorkoutList.addWorkoutToPlaylist}">
+                </h:commandButton>
+
+                </h:form>
+                <button class="closebtn" onclick="document.getElementById('modal').style.display = 'none'">EXIT</button>
+
+            </div>
+
         </div>
 
 

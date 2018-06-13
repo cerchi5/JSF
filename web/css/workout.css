@@ -97,6 +97,46 @@ a{
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     text-align: center;
+}
 
+#modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
 
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 0 auto;
+    padding: auto 20% auto 20%;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+.knob-container {
+    /*background-color: #ffffff;*/
+    /*display: inline-block;*/
+    /*padding: 10px;*/
+
+    width: 104px;
+    height: 66px;
+    position: absolute;
+    vertical-align: middle;
+    margin-top: 66px;
+    margin-left: -152px;
+    border: 0px;
+    background: none;
+    font: bold 40px Arial;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    padding: 0px;
+    -webkit-appearance: none;
 }

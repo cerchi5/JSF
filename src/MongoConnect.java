@@ -1,4 +1,7 @@
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import org.bson.Document;
@@ -149,7 +152,6 @@ public class MongoConnect {
                 List list = new ArrayList(doc.values());
 
                 if(list.get(1).toString().compareTo(emailSubscriber) == 0){
-                    System.out.println("MUIEEE");
                     return false;
                 }
 
@@ -176,7 +178,7 @@ public class MongoConnect {
 
         ArrayList<Template> workoutList = new ArrayList<Template>();
 
-        System.out.println(new Username().getUsername());
+//        System.out.println(new Username().getUsername());
 
         try{
 
@@ -187,7 +189,7 @@ public class MongoConnect {
                 List list = new ArrayList(doc.values());
 
                 workoutList.add(new Template(list.get(0).toString(),list.get(1).toString(),list.get(2).toString(),list.get(3).toString()));
-                System.out.println(list.get(1).toString() + " " + list.get(2).toString() + " " +list.get(3).toString());
+//                System.out.println(list.get(1).toString() + " " + list.get(2).toString() + " " +list.get(3).toString());
             }
 
             return workoutList;
@@ -221,6 +223,93 @@ public class MongoConnect {
         client.close();
         return false;
 
+    }
+
+    public static ArrayList<PlaylistTemplate> getPlaylistsFrom(String username){
+        MongoClient client = new MongoClient("localhost", 27017);
+
+        com.mongodb.client.MongoDatabase database = client.getDatabase("website");
+
+        MongoCollection<Document> collection = database.getCollection("playlists");
+
+        ArrayList<String> playlists = new ArrayList<String>();
+
+        try {
+
+            ArrayList<PlaylistTemplate> playlistTemplateArrayList = new ArrayList<PlaylistTemplate>();
+
+            MongoCursor<Document> cur = collection.find().iterator();
+            while (cur.hasNext()) {
+                Document doc = cur.next();
+
+                List list = new ArrayList(doc.values());
+
+                if(list.get(1).toString().compareTo(username) == 0) {
+
+//                    System.out.println(list.get(1).toString());
+//                    System.out.println(list.get(2).toString());
+//                    System.out.println(list.get(3).toString());
+//
+//                    List<Document> workouts = (List<Document>) list.get(4);
+//
+//                    for (Document x : workouts) {
+//                        System.out.println(x.getString("workoutName"));
+//                        System.out.println(x.getDouble("reps").intValue());
+//                    }
+
+                    String owner = list.get(1).toString();
+                    String category = list.get(2).toString();
+                    String playlistName = list.get(3).toString();
+
+                    PlaylistTemplate auxPlaylist = new PlaylistTemplate(playlistName,category,owner);
+
+                    List<Document> workouts = (List<Document>) list.get(4);
+
+                    for(Document x : workouts)
+                        auxPlaylist.addWorkout(new WorkoutTemplate(x.getString("workoutName"),x.getDouble("reps").intValue()));
+
+
+                    playlistTemplateArrayList.add(auxPlaylist);
+
+                }
+
+            }
+
+            if(playlistTemplateArrayList.size() < 1)
+                return null;
+            else return playlistTemplateArrayList;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+         return null;
+    }
+
+    public static boolean addWorkoutInPlaylist(String username, String category, String playlist, String workoutName, int reps){
+        MongoClient client = new MongoClient("localhost", 27017);
+
+        com.mongodb.client.MongoDatabase database = client.getDatabase("website");
+
+        MongoCollection<Document> collection = database.getCollection("playlists");
+
+        double reps2 = (double) reps;
+
+        try {
+
+            Document initial = new Document("username",username);
+            initial.append("category",category);
+            initial.append("playlistName",playlist);
+
+            Document toAdd = new Document("workouts", new Document("workoutName",workoutName).append("reps",reps));
+
+            Document update = new Document("$push",toAdd);
+
+            collection.updateOne(initial,update);
+
+        }catch (MongoException e){
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }
