@@ -16,19 +16,25 @@
 
         <script type="application/javascript">
             function initMap() {
-                var uluru = {lat: 45.756128, lng: 21.228059};
+                var location = {lat: 45.756128, lng: 21.228059};
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 12,
-                    center: uluru
+                    center: location
                 });
                 var marker = new google.maps.Marker({
-                    position: uluru,
+                    position: location,
                     map: map
                 });
             }
+
+            function mouseClick(name) {
+                name += '.xhtml';
+                $(location).attr('href',name);
+            }
+
         </script>
         <script  type="javascript"
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXNU_s8rz7GmoWvIgg-FkPI1sLeOs8BiA&amp;callback=initMap">
+                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXNU_s8rz7GmoWvIgg-FkPI1sLeOs8BiA&amp;callback=initMap">
         </script>
 
     </h:head>
@@ -65,6 +71,7 @@
             <div>
                 <h3 class="title">CONTACT</h3>
                 <div id="map" class="map"></div>
+                <a href="#" onclick="mouseClick('about')">Terms of use / Privacy policy</a>
             </div>
         </div>
 

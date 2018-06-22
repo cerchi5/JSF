@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/about.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"/>
+    <title>Title</title>
+</h:head>
+<h:body>
+
+    <ui:include src="navbar.xhtml"/>
+
+    <p:panel styleClass="accordionPanel">
+        <p:accordionPanel multiple="true">
+            <p:tab title="Description">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <img src="../images/LogoHZ.png" alt="logoDescription" class="logoImage"/>
+                    <h:outputText value="#{About.description}" styleClass="info"/>
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Contact">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <img src="../images/LogoHZ.png" alt="logoDescription" class="logoImage"/>
+                    <p:panel>
+                        <h:outputText value="Address:  " styleClass="infoHeader"/>
+                        <h:outputText value="#{About.contactAddress}" styleClass="info"/>
+                        <br/>
+                        <h:outputText value="Phone:  " styleClass="infoHeader"/>
+                        <h:outputText value="#{About.contactPhone}" styleClass="info"/>
+                        <br/>
+                        <h:outputText value="Email:  " styleClass="infoHeader"/>
+                        <h:outputText value="#{About.contactEmail}" styleClass="info"/>
+                    </p:panel>
+                </h:panelGrid>
+            </p:tab>
+
+            <p:tab title="Terms of Use">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <i class="fas fa-clipboard-list"/>
+                    <h:outputText value="#{About.termsOfUse}" styleClass="info"/>
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Privacy policy">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <i class="fas fa-lock"/>
+                    <h:outputText value="#{About.privacyPolicy}" styleClass="info"/>
+                </h:panelGrid>
+            </p:tab>
+        </p:accordionPanel>
+    </p:panel>
+
+
+
+    <br/><br/><br/><Br/><br/><br/>
+    <br/><br/><br/><Br/><br/><br/>
+    <br/><br/><br/><Br/><br/><br/>
+
+    <ui:include src="footer.xhtml"/>
+
+</h:body>
+</html>

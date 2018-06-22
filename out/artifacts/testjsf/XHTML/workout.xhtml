@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>JSF</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet"/>
-        <link rel="stylesheet" type="text/css" href="../css/workout.css"/>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"/>
+            <!DOCTYPE html
+            PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+            <html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            xmlns:f="http://xmlns.jcp.org/jsf/core"
+            xmlns:c="http://java.sun.com/jsp/jstl/core"
+            xmlns:p="http://primefaces.org/ui">
+                <h:head>
+            <title>JSF</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet"/>
+                <link rel="stylesheet" type="text/css" href="../css/workout.css"/>
+                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"/>
 
-        <script type="text/javascript">
+                <script type="text/javascript">
 
-            var modalItem = "";
+                function openNav() {
+                    document.getElementById("sidebar").style.display = "grid";
+                    document.getElementById("sidebar").style.width = "250px";
 
-            function openNav() {
-                document.getElementById("sidebar").style.display = "grid";
-                document.getElementById("sidebar").style.width = "250px";
+                    document.getElementById("main").style.marginLeft = "250px";
+                    document.getElementById("openSide").style.marginLeft = "270px";
 
-                document.getElementById("main").style.marginLeft = "250px";
-                document.getElementById("openSide").style.marginLeft = "270px";
-
-                document.getElementById("openSide").style.display = "none";
-            }
+                    document.getElementById("openSide").style.display = "none";
+                }
 
             function closeNav() {
                 document.getElementById("sidebar").style.display = "none";
@@ -39,27 +37,44 @@
                 document.getElementById("openSide").style.display = "block";
             }
 
-//            function openWorkoutModal(id) {
-//                var element = document.getElementById(id);
-//                element.style.display('block');
-//            }
-
-//            (function($) {
-//                $(".modal-trigger").click(function(e){
-//                   e.preventDefault();
-//                   var modal_id = $(this).attr('id');
-//                    document.getElementById(modal_id).style.display = "block";
-//                });
-//            })(jQuery);
-
-            function show_modal(item){
+            function show_modal_workout(item){
+                closeNav();
                 document.getElementById("modal").style.display = "block";
                 document.getElementById("workoutName").innerHTML = item.id;
                 document.getElementById("workoutCategory").innerHTML = item.title;
                 PF('workoutNameField').jq.val(item.id);
                 PF('workoutCategoryField').jq.val(item.title);
-
             }
+
+            function show_modal_edit(item){
+                PF('selectedPlaylistField').jq.val(item);
+                sendParams(item);
+                closeNav();
+//                initDashboard();
+                document.getElementById("modalEdit").style.display = "block";
+            }
+
+            function close_modal_workout(){
+                document.getElementById('modal').style.display = 'none';
+            }
+
+            function close_modal_edit(){
+                document.getElementById('modalEdit').style.display = 'none';
+                openNav();
+            }
+
+            function save(){
+                document.getElementById('modalEdit').style.display = 'none';
+                saveChanges();
+            }
+
+            function sendParams(value) {
+                initPicklist([{
+                    name : 'newValue',
+                    value : value
+                }]);
+            }
+
         </script>
 
     </h:head>
@@ -68,31 +83,26 @@
         <br/><br/><br/><br/><br/><br/><br/>
 
         <div id="sidebar">
-            <!--<a href="#">Add new progamme</a>-->
-            <!--<a href="#">Work</a>-->
-            <!--<a href="#">Remove</a>-->
 
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
 
             <h:form>
-
-                <p:menu toggleable="true" model="#{WorkoutSideMenu.model}"/> <!-- aici model din bean -->
-
+                <p:menu toggleable="true" model="#{WorkoutSideMenu.model}"/>
             </h:form>
 
         </div>
 
-
         <span id="openSide" onclick="openNav()"><i class="fas fa-clipboard-list fa-3x" style="color: #915a08"/></span>
+
 
         <div id="main">
 
             <p:panelGrid columns="4" layout="grid" styleClass="mainGrid">
                 <c:forEach items="#{WorkoutList.allWorkouts}" var="item">
-                    <p:panelGrid columns="1" layout="grid" cellpadding="0" cellspacing="2">
-                        <div class="modal-trigger" id="#{item.name}" onclick="show_modal(this)" title="#{item.category}">
+                    <p:panelGrid columns="1" layout="grid" cellpadding="0" cellspacing="2" styleClass="workoutPanel">
+                        <div class="modal-trigger" id="#{item.name}" onclick="show_modal_workout(this)" title="#{item.category}">
                             <img src="../images/back2.jpg" alt="" class="workoutImage" />
-                            <p id="" style="text-align: center; margin: 0;">#{item.name}</p>
+                            <p class="workoutName">#{item.name}</p>
                         </div>
                     </p:panelGrid>
                 </c:forEach>
@@ -102,39 +112,105 @@
 
         <div id="modal">
 
-            <div class="modal-content">
+            <div class="modal-content2">
 
                 <h:form>
 
+                    <p:remoteCommand name="notify" update="messagePopUp" actionListener="#{WorkoutList.notify('Successful')}"/>
+                    <p:growl id="messagePopUp" showDetail="true" />
+
                 <p:panelGrid columns="2" layout="grid" cellpadding="40" cellspacing="8px">
                     <p:panelGrid id="workoutPanel" columns="1" layout="grid" cellspacing="50px">
-                        <p:column><label id="workoutName"><b>Name</b></label></p:column>
-                        <p:column><label id="workoutCategory"><b>Category</b></label></p:column>
+                        <p:column>
+                            <label><b>Workout Name:  </b></label>
+                            <label id="workoutName"><b>Name</b></label>
+                        </p:column>
+                        <p:column>
+                            <label><b>Workout Category:  </b></label>
+                            <label id="workoutCategory"><b>Category</b></label>
+                        </p:column>
                         <p:inputText type="hidden" value="#{WorkoutList.selectedWorkoutName}" widgetVar="workoutNameField"/>
                         <p:inputText type="hidden" value="#{WorkoutList.selectedCategory}" widgetVar="workoutCategoryField"/>
                         <p:column>
-                            <h:selectOneMenu value="#{WorkoutList.option}">
+                            <label for="selectOne">Select a playlist:  </label>
+                            <h:selectOneMenu value="#{WorkoutList.option}" id="selectOne">
                                 <f:selectItems value="#{WorkoutList.playlistsNames}"/>
                             </h:selectOneMenu>
-                            <!--<p:inputNumber value="#{WorkoutList.reps}" minValue="1" maxValue="500"/>-->
+                        </p:column>
+                        <p:column>
+                            <label>Reps</label>
+                            <!--<p:inputNumber value="#{WorkoutList.reps}"/>-->
+                            <p:spinner id="reps" value="#{WorkoutList.reps}" min="0" max="300"/>
                             <!--<div class="knob-container ui-corner-all">-->
                             <!--<p:knob cursor="true" value="#{WorkoutList.reps}" max="">-->
                             <!--</p:knob>-->
                             <!--</div>-->
+
                         </p:column>
 
                         <!--<p:column><p:inputNumber value="#{WorkoutList.reps}" minValue="0" maxValue="500"/></p:column>-->
                     </p:panelGrid>
-                    <img src="../images/back2.jpg" alt=""/> <!--adjust image to fit the modal-->
+                    <img src="../images/back2.jpg" alt="" class="workoutImageModal"/> <!--adjust image to fit the modal-->
                 </p:panelGrid>
-                <h:commandButton styleClass="addToPlaylist" value="Add to playlist" actionListener="#{WorkoutList.addWorkoutToPlaylist}">
+                <h:commandButton styleClass="addToPlaylist" value="Add to playlist" actionListener="#{WorkoutList.addWorkoutToPlaylist}" onclick="notify()">
                 </h:commandButton>
 
                 </h:form>
-                <button class="closebtn" onclick="document.getElementById('modal').style.display = 'none'">EXIT</button>
+                <button class="closebtn exit" onclick="close_modal_workout()">EXIT</button>
 
             </div>
 
+        </div>
+
+
+        <div id="modalEdit">
+            <div class="modal-content2">
+
+                <h:form>
+
+                    <p:remoteCommand name="initPicklist" action="#{WorkoutList.initPicklist}" id="initPicklist" process="@this" update="form"/>
+
+                    <p:remoteCommand name="saveChanges" action="#{WorkoutList.save}" id="saveChanges" process="@this"/>
+
+                    <p:inputText type="hidden" value="#{WorkoutList.selectedPlaylist}" widgetVar="selectedPlaylistField"/>
+
+                </h:form>
+
+                <h:outputText styleClass="modalEditTitle" value="Reorder playlist: "/>
+
+                <h:form id="form">
+
+                    <div id="picklist-panel">
+                        <div id="picklist-left">
+                            <h:selectOneListbox styleClass="selectPicklist" value="#{WorkoutList.leftValue}">
+                                <f:selectItems value="#{WorkoutList.source}"/>
+                            </h:selectOneListbox>
+                        </div>
+                        <div id="picklist-buttons">
+                            <h:commandButton value="&gt;" action="#{WorkoutList.pushToRightSelected()}">
+                                <f:ajax execute="@form" render="@form"/>
+                            </h:commandButton>
+                            <h:commandButton value="&gt;&gt;" action="#{WorkoutList.pushToRightAll()}">
+                                <f:ajax execute="@form" render="@form"/>
+                            </h:commandButton>
+                            <h:commandButton value="&lt;" action="#{WorkoutList.pushToLeftSelected()}">
+                                <f:ajax execute="@form" render="@form"/>
+                            </h:commandButton>
+                            <h:commandButton value="&lt;&lt;" action="#{WorkoutList.pushToLeftAll()}">
+                                <f:ajax execute="@form" render="@form"/>
+                            </h:commandButton>
+                        </div>
+                        <div id="picklist-right">
+                            <h:selectOneListbox styleClass="selectPicklist" value="#{WorkoutList.rightValue}">
+                                <f:selectItems value="#{WorkoutList.target}"/>
+                            </h:selectOneListbox>
+                        </div>
+                    </div>
+
+                </h:form>
+                <button class="closebtn save" onclick="save()">SAVE</button>
+                <button class="closebtn exit" onclick="close_modal_edit()">EXIT</button>
+            </div>
         </div>
 
 

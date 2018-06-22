@@ -12,12 +12,13 @@ a{
 .sticky{
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 15fr;
     grid-template-areas: "logo items";
     background-color: #000;
     z-index: 1000;
     position: fixed;
     top: 0;
+    height: 65px;
 }
 
 .navbarList{
@@ -41,8 +42,15 @@ a{
     transition: .2s;
 }
 
+.logo{
+    background-color: #e9e9e9;
+    height: 65px;
+}
+
 .logo img{
-    width: auto;
+    /*height: 63px;*/
+    /*width: 100px;*/
+    height: 65px;
     padding: 0 30px;
 }
 
@@ -79,6 +87,10 @@ a{
     z-index: 100;
 }
 
+.userItem{
+    color: #e9e9e9;
+}
+
 
 /* RESPONSIVE INIT */
 
@@ -113,10 +125,10 @@ a{
 .responsiveItems li{
     border-bottom: 2px solid #231502;
 }
-.resonseiveItems li a{
+
+.responsiveItems li a{
     color: #e9e9e9;
 }
-
 
 
 
@@ -226,6 +238,11 @@ button:hover {
         color: #915a08;
         font-size: 30px;
         font-weight: bold;
+    }
+
+    .responsiveItems li  .userItem{
+        font-size: 25px;
+        color: #e9e9e9;
     }
 
     .active{

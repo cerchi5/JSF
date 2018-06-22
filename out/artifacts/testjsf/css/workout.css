@@ -11,6 +11,71 @@ a{
     color: #e9e9e9;
 }
 
+.ui-growl{
+    background-color: #2b2c2d;
+    z-index: 1005;
+    top: 2vh;
+    right: 2vw;
+    width: 300px;
+    position: fixed;
+}
+
+.ui-growl-item-container {
+    position: relative;
+    margin: 0 0 10px 0;
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+}
+.ui-growl-item {
+    display: block;
+    padding: 10px 15px;
+}
+.ui-growl-item p {
+    padding: 0;
+    margin: 0;
+}
+.ui-growl-icon-close {
+    position: absolute;
+    top: 5px;
+    right: 3px;
+    cursor: pointer;
+}
+.ui-growl-title {
+    font-weight: bold;
+    padding: 0 0 7px 0;
+    display: block;
+}
+.ui-growl-image {
+    width: 32px;
+    height: 32px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+.ui-growl-image-info {
+    background-position: 0 -264px;
+}
+.ui-growl-image-warn {
+    background-position: 0 -396px;
+}
+.ui-growl-image-error {
+    background-position: 0 0;
+}
+.ui-growl-image-fatal {
+    background-position: 0 -132px;
+}
+.ui-growl-message {
+    padding: 0 0 5px 0;
+    width: 220px;
+    float: right;
+}
+.ui-growl-message p {
+    font-weight: normal;
+}
+
+
+
 #sidebar{
     margin: 0;
     display: none;
@@ -24,13 +89,13 @@ a{
     /*background: #1b1f26;*/
     background-color: #915a08;
     overflow-x: hidden;
-    padding-top: 60px;
+    padding-top: 40px;
     transition: .5s;
     text-align: center;
 }
 
 #sidebar a{
-    font-size: 25px;
+    font-size: 18px;
     display: block;
     transition: 0.3s;
 }
@@ -43,7 +108,7 @@ a{
     position: absolute;
     top: 0;
     right: 25px;
-    font-size: 36px;
+    font-size: 30px;
     margin-left: 50px;
 }
 
@@ -56,18 +121,32 @@ a{
     background-color: rgba(0,0,0,0.5);
 }
 
+.ui-widget-header{
+    font-size: 22px;
+}
+
+.ui-submenu-child{
+    font-size: 18px;
+}
+
+.ui-dashboard-column{
+    width: 300px;
+    height:150px;
+}
 
 #main {
     transition: margin-left .5s;
     padding: 16px;
 }
 
-.workoutPanel{
-
+.workoutImage{
+    width: 16vw; !important;
+    height: auto;
 }
 
-.workoutImage{
-    width: 18vw; !important;
+.workoutImageModal{
+    text-align: center;
+    width: 25vw; !important;
     height: auto;
 }
 
@@ -88,6 +167,23 @@ a{
     display: block;
 }
 
+.workoutPanel{
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    background-color: #2b2c2d;
+    text-align: center;
+}
+
+.workoutPanel:hover{
+    background-color: #4b4d4f;
+}
+
+.workoutName{
+    color: #e9e9e9;
+    text-align: center;
+    margin: 0;
+}
+
 .workoutDescription{
     color: #915a08;
     font-size: 24px;
@@ -99,7 +195,7 @@ a{
     text-align: center;
 }
 
-#modal{
+#modal, #modalEdit{
     display: none;
     position: fixed;
     z-index: 1;
@@ -110,33 +206,85 @@ a{
     overflow: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
+    padding-top: 10vh;
 }
 
-.modal-content {
+.modal-content2{
     background-color: #fefefe;
     margin: 5% auto 0 auto;
-    padding: auto 20% auto 20%;
+    padding: 2% 1%;
     border: 1px solid #888;
-    width: 50%;
+    width: 60%;
 }
 
-.knob-container {
-    /*background-color: #ffffff;*/
-    /*display: inline-block;*/
-    /*padding: 10px;*/
+.addToPlaylist{
+    width: 100%;
+    height: 5vh;
+    color: #e9e9e9;
+    background-color: #915a08;
+    font-weight: bold;
+    border: none;
+    font-family: 'Montserrat', Arial, Serif;
+    cursor: pointer;
+}
 
-    width: 104px;
-    height: 66px;
-    position: absolute;
-    vertical-align: middle;
-    margin-top: 66px;
-    margin-left: -152px;
-    border: 0px;
-    background: none;
-    font: bold 40px Arial;
+.addToPlaylist:hover{
+    background-color: rgba(145, 90, 8, 0.8);
+}
+
+.modalEditTitle{
+    color: #2b2c2d;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+#picklist-panel{
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    height: auto;
+}
+
+.selectPicklist{
+    width: 20vw;
+    min-height: 30vh;
+}
+
+.selectPicklist option{
     text-align: center;
-    color: rgb(0, 0, 0);
-    padding: 0px;
-    -webkit-appearance: none;
+    padding: 5px 10px;
 }
+
+#picklist-left, #picklist-right{
+    float: left;
+    width:20vw;
+}
+
+#picklist-buttons{
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: center;
+    width: 8vw;
+}
+
+#picklist-buttons input{
+    margin-top: 2px;
+    font-size: 17px;
+    color: #915a08;
+    font-weight: bold;
+    border: none;
+}
+
+#picklist-buttons input:hover{
+    background-color: #2b2c2d;
+}
+
+.exit{
+    background-color: #2b2c2d;
+    font-weight: bold;
+}
+
+.exit:hover{
+    background-color: rgba(43, 44, 45, 0.5);
+}
+

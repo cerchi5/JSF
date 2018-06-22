@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>JSF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/MyWorkouts.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"/>
+</h:head>
+<h:body>
+    <ui:include src="navbar.xhtml"/>
+    <br/><br/><br/><br/><br/><br/><br/>
+
+
+    <p:panel>
+        <h:outputLabel value="Create new Playlist"/>
+        <p:panel>
+            <h:form id="newPlaylistForm">
+                <h:outputLabel value="Playlist name:"/>
+                <h:inputText value="#{MyWorkouts.newPlaylistName}" valueChangeListener="#{MyWorkouts.setNewPlaylistName(MyWorkouts.newPlaylistName)}"/>
+                <h:commandButton value="Add" action="#{MyWorkouts.createPlaylist}" styleClass="createButton">
+                    <f:ajax execute="@form" render="newPlaylistForm"/>
+                </h:commandButton>
+            </h:form>
+        </p:panel>
+    </p:panel>
+
+    <p:panel styleClass="accordionPanel">
+        <p:accordionPanel multiple="true" styleClass="width100">
+            <c:forEach items="#{MyWorkouts.playlists}" var="item">
+                <p:tab title="#{item.playlistName}" StyleClass="width100 ui-accordion-header" id="#{'tab'.concat(item.playlistName)}">
+
+                    <p:panelGrid columns="4" layout="grid" cellpadding="0" cellspacing="2px" styleClass="title-panel">
+                        <h:outputLabel value="Workout name"/>
+                        <h:outputLabel value="Number of reps"/>
+                        <h:outputLabel value="Decrement reps"/>
+                        <h:outputLabel value="Increment reps"/>
+                    </p:panelGrid>
+                    <c:forEach items="#{item.workouts}" var="workout">
+                        <p:panel >
+                        <h:form id="#{'form'.concat(workout.name).concat(item.playlistName)}">
+                            <p:panelGrid columns="4" layout="grid">
+                                <h:outputLabel value="#{workout.name}"/>
+                                <h:outputLabel value="#{workout.reps}"/>
+                                    <h:commandButton value="-" action="#{MyWorkouts.decrement(item.playlistName,workout.name)}" styleClass="buttonID">
+                                        <f:ajax execute="@form" render="#{'form'.concat(workout.name).concat(item.playlistName)}"/>
+                                    </h:commandButton>
+                                    <h:commandButton value="+" action="#{MyWorkouts.increment(item.playlistName,workout.name)}" styleClass="buttonID">
+                                        <f:ajax execute="@form" render="#{'form'.concat(workout.name).concat(item.playlistName)}"/>
+                                    </h:commandButton>
+                            </p:panelGrid>
+                        </h:form>
+                            <h:form id="#{'form'.concat(workout.name).concat(item.playlistName).concat(2)}" style="text-align: center">
+                                <h:commandButton value="DELETE" action="#{MyWorkouts.delete(item.playlistName,workout.name)}" styleClass="deleteButton">
+                                    <f:ajax execute="@form" render="#{'form'.concat(workout.name).concat(item.playlistName).concat(2)}"/>
+                                </h:commandButton>
+                            </h:form>
+                        </p:panel>
+                    </c:forEach>
+
+
+                </p:tab>
+            </c:forEach>
+        </p:accordionPanel>
+    </p:panel>
+
+
+
+
+    <br/><br/><br/><Br/><br/><br/>
+    <br/><br/><br/><Br/><br/><br/>
+    <br/><br/><br/><Br/><br/><br/>
+
+    <ui:include src="footer.xhtml"/>
+</h:body>
+</html>

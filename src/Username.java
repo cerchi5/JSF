@@ -3,9 +3,12 @@ import org.omg.PortableInterceptor.SUCCESSFUL;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.Serializable;
 
 @ManagedBean(name = "Username")
@@ -64,6 +67,23 @@ public class Username implements Serializable{
         }
 
         return "";
+    }
+
+    public void logout(){
+        setUsername(null);
+        setEmail(null);
+        setPassword(null);
+        setConfirmPassword(null);
+        reload();
+    }
+
+    public void reload(){
+        try {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void setUsername(String username) {

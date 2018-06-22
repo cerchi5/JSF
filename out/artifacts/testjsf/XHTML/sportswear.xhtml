@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>JSF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/MyWorkouts.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"/>
+</h:head>
+<h:body>
+    <ui:include src="navbar.xhtml"/>
+    <br/><br/><br/><br/><br/><br/><br/>
+
+
+    <p:tabView>
+        <p:tab title="All products">
+            <p:panelGrid columns="4" layout="grid" styleClass="productsPanel">
+                <c:forEach items="#{Sportswear.allProducts}" var="item">
+                    <p:panelGrid columns="1" layout="grid" styleClass="product">
+                        <img src="../images/back2.jpg" alt="" class="productImage" />
+                        <p class="workoutName">#{item.name}</p>
+                    </p:panelGrid>
+                </c:forEach>
+            </p:panelGrid>
+        </p:tab>
+        <p:tab title="T-Shirts">
+            <p:panelGrid columns="4" layout="grid" styleClass="productsPanel">
+                <c:forEach items="#{Sportswear.tshirts}" var="item">
+                    <p:panelGrid columns="1" layout="grid" styleClass="product">
+                        <img src="../images/back2.jpg" alt="" class="productImage" />
+                        <p class="workoutName">#{item.name}</p>
+                    </p:panelGrid>
+                </c:forEach>
+            </p:panelGrid>
+        </p:tab>
+        <p:tab title="Pants">
+            <p:panelGrid columns="4" layout="grid" styleClass="productsPanel">
+                <c:forEach items="#{Sportswear.pants}" var="item">
+                    <p:panelGrid columns="1" layout="grid" styleClass="product">
+                        <img src="../images/back2.jpg" alt="" class="productImage" />
+                        <p class="workoutName">#{item.name}</p>
+                    </p:panelGrid>
+                </c:forEach>
+            </p:panelGrid>
+        </p:tab>
+        <p:tab title="Shoes">
+            <p:panelGrid columns="4" layout="grid" styleClass="productsPanel">
+                <c:forEach items="#{Sportswear.shoes}" var="item">
+                    <p:panelGrid columns="1" layout="grid" styleClass="product">
+                        <img src="../images/back2.jpg" alt="" class="productImage" />
+                        <p class="workoutName">#{item.name}</p>
+                    </p:panelGrid>
+                </c:forEach>
+            </p:panelGrid>
+        </p:tab>
+        <p:tab title="Accesories">
+            <p:panelGrid columns="4" layout="grid" styleClass="productsPanel">
+                <c:forEach items="#{Sportswear.accessories}" var="item">
+                    <p:panelGrid columns="1" layout="grid" styleClass="product">
+                        <img src="../images/back2.jpg" alt="" class="productImage" />
+                        <p class="workoutName">#{item.name}</p>
+                    </p:panelGrid>
+                </c:forEach>
+            </p:panelGrid>
+        </p:tab>
+    </p:tabView>
+
+
+    <br/><br/><br/><Br/><br/><br/>
+    <br/><br/><br/><Br/><br/><br/>
+    <br/><br/><br/><Br/><br/><br/>
+
+    <ui:include src="footer.xhtml"/>
+</h:body>
+</html>

@@ -1,0 +1,42 @@
+body{
+    margin: 0;
+
+    font-family: 'Montserrat', Arial, Serif;
+    box-sizing: border-box;
+    background-color: #1b1f26;
+}
+
+.accordionPanel{
+    align-self: center;
+    padding-top: 30px;
+    background-color: #e9e9e9;
+    width: 100%;
+    margin: 100px 10px;
+}
+
+.ui-accordion-header{
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #c8c8c8;
+    border: none;
+}
+
+.logoImage{
+    width: 18vw;
+}
+
+.info{
+    font-size: 18px;
+}
+
+.infoHeader{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.fas{
+    font-size: 50px;
+    background-color: #e9e9e9;
+    border: none;
+    color: #915a08;
+}
